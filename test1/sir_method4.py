@@ -17,7 +17,8 @@ def Rp(args: dict,R_values,S_values,I_values,days) -> float:
     I_value_max = 0
     I_value_max_day = 0
     for p in range(1,args['P'] + 1):
-        R[p] = R[p-1] + delta_t*(args['gamma'] * args['N'] - g(R[p-1],args))
+        R[p] = R[p-1] + delta_t*(args['gamma'] * args['N'] \
+               - g(R[p-1],args))
         R_value = R[p]
         S_value = S(R_value,args)
         I_value = I(R_value,S_value,args)
@@ -63,7 +64,12 @@ def main() -> None:
     I_values.clear()
     Rp(args,R_values,S_values,I_values,days)
     muy = args['beta']/args['gamma']
-    I_value_max_true = ((-1) / (muy)) * math.log(muy) - (1/muy) + (args['N'] - args['n']) + args['n'] - (1/muy) * math.log(args['n'])
+    I_value_max_true = ((-1) / (muy)) * math.log(muy) \
+                       - (1/muy) \
+                       + (args['N'] \
+                       - args['n']) \
+                       + args['n'] \
+                       - (1/muy) * math.log(args['n'])
     plt.figure(figsize=(20,12))
     plt.plot(days,R_values,label='R', linewidth=4.5)
     plt.plot(days,S_values,label='S', linewidth=4.5)

@@ -18,8 +18,11 @@ def Rpk(args: dict,R_values,S_values,I_values,days) -> float:
     I_value_max_day = 0
     for k in range(1,args['K'] + 1):
         for p in range(1,args['P'] + 1):
-            R[k][p] = (R[k][p-1] + delta_t * (args['gamma'] * args['N'] - g(R[k-1][p],args) + args['M'] * R[k-1][p]))\
-                    / (1 + delta_t * args['M'])
+            R[k][p] = (R[k][p-1] + delta_t \
+                       * (args['gamma'] * args['N'] \
+                          - g(R[k-1][p],args) \
+                          + args['M'] * R[k-1][p])) \
+                      / (1 + delta_t * args['M'])
             if k == args['K']:
                 R_value = R[k][p]
                 S_value = S(R_value,args)
@@ -55,15 +58,7 @@ def main() -> None:
         'P':19000,
         'K':100,
         'n':97.47*1e6 - 11
-            #'N':1000,
-            #'M':0.02,
-            #'gamma':0.02,
-            #'beta':0.0004,
-            #'T':365,
-            #'P':100,
-            #'K':5,
-            #'n':998
-            }
+        }
     lessThanTolerance = False
     tolerance = 0.1
     R_values = []
@@ -77,7 +72,12 @@ def main() -> None:
     I_values.clear()
     Rpk(args,R_values,S_values,I_values,days)
     muy = args['beta']/args['gamma']
-    I_value_max_true = ((-1) / (muy)) * math.log(muy) - (1/muy) + (args['N'] - args['n']) + args['n'] - (1/muy) * math.log(args['n'])
+    I_value_max_true = ((-1) / (muy)) * math.log(muy) \
+                       - (1/muy) \
+                       + (args['N'] \
+                       - args['n']) \
+                       + args['n'] \
+                       - (1/muy) * math.log(args['n'])
     plt.figure(figsize=(20,12))
     plt.plot(days,R_values,label='R', linewidth=4.5)
     plt.plot(days,S_values,label='S', linewidth=4.5)

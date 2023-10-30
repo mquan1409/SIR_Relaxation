@@ -6,9 +6,13 @@ import matplotlib.pyplot as plt
 
 def Ra(t: float, args: dict) -> float:
     muy = args['beta'] / args['gamma']
-    eta = math.sqrt(2*args['n']*muy*muy*(args['N'] - args['n']) + (args['n']*muy - 1)**2)
+    eta = math.sqrt(2*args['n']*muy*muy*(args['N'] \
+                    - args['n']) \
+                    + (args['n']*muy - 1)**2)
     psi = math.atanh((1/eta) * (args['n']*muy - 1))
-    R = (1/(args['n']*muy*muy)) * (args['n']*muy - 1 + eta*math.tanh((args['gamma']*eta*t)/2 - psi))
+    R = (1/(args['n']*muy*muy)) \
+        * (args['n']*muy - 1 \
+           + eta*math.tanh((args['gamma']*eta*t)/2 - psi))
     return R
 
 def S(R: float, args: dict) -> float:
@@ -57,7 +61,12 @@ def main() -> None:
             I_value_max_day = j
     print('--- I value max =', I_value_max, 'on day', I_value_max_day)
     muy = args['beta']/args['gamma']
-    I_value_max_true = ((-1) / (muy)) * math.log(muy) - (1/muy) + (args['N'] - args['n']) + args['n'] - (1/muy) * math.log(args['n'])
+    I_value_max_true = ((-1) / (muy)) * math.log(muy) \
+                       - (1/muy) \
+                       + (args['N'] \
+                       - args['n']) \
+                       + args['n'] \
+                       - (1/muy) * math.log(args['n'])
     plt.figure(figsize=(20,12))
     plt.plot(days,R_values,label='R', linewidth=4.5)
     plt.plot(days,S_values,label='S', linewidth=4.5)
