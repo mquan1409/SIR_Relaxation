@@ -13,30 +13,43 @@ def g(r: float, args: dict) -> float:
 
 def F(t: float, R: float, args: dict):
     muy = args['beta'] / args['gamma']
-    result = args['gamma']*(args['N'] - args['n']*math.exp((-1)*muy*R) - R)
+    result = args['gamma']*(args['N'] \
+           - args['n']*math.exp((-1)*muy*R) - R)
     return result
 
 def K1(tp: float, p: int, k: int, R, args: dict):
     delta_t = args['T'] / args['P']
-    result = delta_t * ((-1)*args['M']*R[k][p-1] + args['gamma']*args['N'] - g(R[k-1][p-1],args) + args['M']*R[k-1][p-1])
+    result = delta_t * ((-1)*args['M']*R[k][p-1] \
+                        + args['gamma']*args['N'] \
+                        - g(R[k-1][p-1],args) \
+                        + args['M']*R[k-1][p-1])
     return result
 
 def K2(tp: float, p: int, k: int, R, args: dict):
     delta_t = args['T'] / args['P']
-    result = delta_t * ((-1)*args['M']*(R[k][p-1] + K1(tp,p,k,R,args)/2) + args['gamma']*args['N']\
-            - g((1/2)*(R[k-1][p-1] + R[k-1][p]),args) + args['M']*(1/2)*(R[k-1][p-1] + R[k-1][p]))
+    result = delta_t * ((-1)*args['M']*(R[k][p-1] \
+                        + K1(tp,p,k,R,args)/2) \
+                        + args['gamma']*args['N'] \
+                        - g((1/2)*(R[k-1][p-1] + R[k-1][p]),args) \
+                        + args['M']*(1/2)*(R[k-1][p-1] + R[k-1][p]))
     return result
 
 def K3(tp: float, p: int, k: int, R, args: dict):
     delta_t = args['T'] / args['P']
-    result = delta_t * ((-1)*args['M']*(R[k][p-1] + K2(tp,p,k,R,args)/2) + args['gamma']*args['N'] -\
-            g((1/2)*(R[k-1][p-1] + R[k-1][p]),args) + args['M']*(1/2)*(R[k-1][p-1] + R[k-1][p]))
+    result = delta_t * ((-1)*args['M']*(R[k][p-1] \
+                        + K2(tp,p,k,R,args)/2) \
+                        + args['gamma']*args['N'] \
+                        - g((1/2)*(R[k-1][p-1] + R[k-1][p]),args) \
+                        + args['M']*(1/2)*(R[k-1][p-1] + R[k-1][p]))
     return result
 
 def K4(tp: float, p: int, k: int, R, args: dict):
     delta_t = args['T'] / args['P']
-    result = delta_t * ((-1)*args['M']*(R[k][p-1] + K3(tp,p,k,R,args)) + args['gamma']*args['N'] -\
-            g(R[k-1][p],args) + args['M']*R[k-1][p])
+    result = delta_t * ((-1)*args['M']*(R[k][p-1] \
+                        + K3(tp,p,k,R,args)) \
+                        + args['gamma']*args['N'] \
+                        - g(R[k-1][p],args) \
+                        + args['M']*R[k-1][p])
     return result
 
 def S(R: float, args: dict) -> float:
@@ -55,8 +68,11 @@ def Rpk(args: dict,R_values,S_values,I_values,days) -> float:
     I_value_max_day = 0
     for k in range(1,args['K'] + 1):
         for p in range(1,args['P'] + 1):
-            R[k][p] = R[k][p-1] + (1/6)*K1(p*delta_t,p,k,R,args) + (1/3)*K2(p*delta_t,p,k,R,args)\
-                    + (1/3)*K3(p*delta_t,p,k,R,args) + (1/6)*K4(p*delta_t,p,k,R,args)
+            R[k][p] = R[k][p-1] \
+                      + (1/6)*K1(p*delta_t,p,k,R,args) \
+                      + (1/3)*K2(p*delta_t,p,k,R,args) \
+                      + (1/3)*K3(p*delta_t,p,k,R,args) \
+                      + (1/6)*K4(p*delta_t,p,k,R,args)
             if k == args['K']:
                 R_value = R[k][p]
                 S_value = S(R_value,args)
@@ -98,7 +114,10 @@ def main() -> None:
     I_values.clear()
     Rpk(args,R_values,S_values,I_values,days)
     muy = args['beta']/args['gamma']
-    I_value_max_true = ((-1) / (muy)) * math.log(muy) - (1/muy) + (args['N'] - args['n']) + args['n'] - (1/muy) * math.log(args['n'])
+    I_value_max_true = ((-1) / (muy)) * math.log(muy) \
+                       - (1/muy) + (args['N'] \
+                       - args['n']) + args['n'] \
+                       - (1/muy) * math.log(args['n'])
     plt.figure(figsize=(20,12))
     plt.plot(days,R_values,label='R',linewidth=4.5)
     plt.plot(days,S_values,label='S',linewidth=4.5)
