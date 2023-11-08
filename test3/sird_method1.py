@@ -78,8 +78,10 @@ def main() -> None:
     D_values.clear()
     Rpk(args,R_values,D_values, S_values,I_values,days)
     intermidiate_value = ((args['gamma'] + args['sigma'])/args['beta'])
-    I_value_max_true = intermidiate_value*math.log(intermidiate_value) - intermidiate_value \
-            + (args['N'] - args['n'] - args['d']) + args['n'] - intermidiate_value*math.log(args['n'])
+    I_value_max_true = intermidiate_value*math.log(intermidiate_value) \
+            - intermidiate_value \
+            + (args['N'] - args['n'] - args['d']) \
+            + args['n'] - intermidiate_value*math.log(args['n'])
     plt.figure(figsize=(20,12))
     plt.plot(days,R_values,label='R',linewidth=4.5)
     plt.plot(days,D_values,label='D',linewidth=4.5)

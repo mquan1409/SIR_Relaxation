@@ -6,30 +6,40 @@ import matplotlib.pyplot as plt
 
 def g_bar(r: float, args: dict) -> float:
     muy = args['beta'] / args['gamma']
-    result = args['gamma']*args['n']*math.exp((-1)*muy*r) + (args['gamma'] + args['sigma'])*r
+    result = args['gamma']*args['n']*math.exp((-1)*muy*r) \
+           + (args['gamma'] + args['sigma'])*r
     return result
 
 def K1(tp: float, p: int, k: int, R, args: dict):
     delta_t = args['T'] / args['P']
-    result = delta_t * ((-1)*args['M_bar']*R[k][p-1] + args['gamma']*args['N'] - g_bar(R[k-1][p-1],args) + args['M_bar']*R[k-1][p-1])
+    result = delta_t * ((-1)*args['M_bar']*R[k][p-1] \
+           + args['gamma']*args['N'] \
+           - g_bar(R[k-1][p-1],args) + args['M_bar']*R[k-1][p-1])
     return result
 
 def K2(tp: float, p: int, k: int, R, args: dict):
     delta_t = args['T'] / args['P']
-    result = delta_t * ((-1)*args['M_bar']*(R[k][p-1] + K1(tp,p,k,R,args)/2) + args['gamma']*args['N']\
-            - g_bar((1/2)*(R[k-1][p-1] + R[k-1][p]),args) + args['M_bar']*(1/2)*(R[k-1][p-1] + R[k-1][p]))
+    result = delta_t * ((-1)*args['M_bar']*(R[k][p-1] \
+           + K1(tp,p,k,R,args)/2) \
+           + args['gamma']*args['N'] \
+           - g_bar((1/2)*(R[k-1][p-1] + R[k-1][p]),args) \
+           + args['M_bar']*(1/2)*(R[k-1][p-1] + R[k-1][p]))
     return result
 
 def K3(tp: float, p: int, k: int, R, args: dict):
     delta_t = args['T'] / args['P']
-    result = delta_t * ((-1)*args['M_bar']*(R[k][p-1] + K2(tp,p,k,R,args)/2) + args['gamma']*args['N'] -\
-            g_bar((1/2)*(R[k-1][p-1] + R[k-1][p]),args) + args['M_bar']*(1/2)*(R[k-1][p-1] + R[k-1][p]))
+    result = delta_t * ((-1)*args['M_bar']*(R[k][p-1] \
+           + K2(tp,p,k,R,args)/2) \
+           + args['gamma']*args['N'] \
+           - g_bar((1/2)*(R[k-1][p-1] + R[k-1][p]),args) \
+           + args['M_bar']*(1/2)*(R[k-1][p-1] + R[k-1][p]))
     return result
 
 def K4(tp: float, p: int, k: int, R, args: dict):
     delta_t = args['T'] / args['P']
-    result = delta_t * ((-1)*args['M_bar']*(R[k][p-1] + K3(tp,p,k,R,args)) + args['gamma']*args['N'] -\
-            g_bar(R[k-1][p],args) + args['M_bar']*R[k-1][p])
+    result = delta_t * ((-1)*args['M_bar']*(R[k][p-1] \
+           + K3(tp,p,k,R,args)) + args['gamma']*args['N'] \
+           - g_bar(R[k-1][p],args) + args['M_bar']*R[k-1][p])
     return result
 
 def D(R: float, args: dict) -> float:
@@ -52,8 +62,11 @@ def Rpk(args: dict,R_values,D_values,S_values,I_values,days) -> float:
     I_value_max_day = 0
     for k in range(1,args['K'] + 1):
         for p in range(1,args['P'] + 1):
-            R[k][p] = R[k][p-1] + (1/6)*K1(p*delta_t,p,k,R,args) + (1/3)*K2(p*delta_t,p,k,R,args)\
-                    + (1/3)*K3(p*delta_t,p,k,R,args) + (1/6)*K4(p*delta_t,p,k,R,args)
+            R[k][p] = R[k][p-1] \
+                    + (1/6)*K1(p*delta_t,p,k,R,args) \
+                    + (1/3)*K2(p*delta_t,p,k,R,args) \
+                    + (1/3)*K3(p*delta_t,p,k,R,args) \
+                    + (1/6)*K4(p*delta_t,p,k,R,args)
             if k == args['K']:
                 R_value = R[k][p]
                 D_value = D(R_value,args)
@@ -89,8 +102,6 @@ def main() -> None:
     tolerance = 0.1
     I_value_max_prev = 0.1
     I_value_max_day_prev = 0.1
-    #for i in range(0,100):
-        #args['P'] += 1
     R_values = []
     D_values = []
     S_values = []
@@ -101,9 +112,12 @@ def main() -> None:
     D_values.clear()
     S_values.clear()
     I_values.clear()
-    (I_value_max,I_value_max_day) = Rpk(args,R_values,D_values,S_values,I_values,days) 
-    I_max_variance = abs((I_value_max - I_value_max_prev)/I_value_max_prev) * 10**6
-    I_max_day_variance = abs((I_value_max_day - I_value_max_day_prev)/I_value_max_day_prev) * 10**3
+    (I_value_max,I_value_max_day) = \
+        Rpk(args,R_values,D_values,S_values,I_values,days) 
+    I_max_variance = \
+        abs((I_value_max - I_value_max_prev)/I_value_max_prev) * 10**6
+    I_max_day_variance = \
+        abs((I_value_max_day - I_value_max_day_prev)/I_value_max_day_prev) * 10**3
     print('Imax: ', I_value_max, 'day', I_value_max_day, 'P:',args['P'], 'I_vari:',I_max_variance, 'Day_vari:',I_max_day_variance)
     I_value_max_prev = I_value_max
     I_value_max_day_prev = I_value_max_day
@@ -113,8 +127,10 @@ def main() -> None:
 
     muy = args['beta']/args['gamma']
     intermidiate_value = ((args['gamma'] + args['sigma'])/args['beta'])
-    I_value_max_true = intermidiate_value*math.log(intermidiate_value) - intermidiate_value \
-            + (args['N'] - args['n'] - args['d']) + args['n'] - intermidiate_value*math.log(args['n'])
+    I_value_max_true = intermidiate_value*math.log(intermidiate_value) \
+                     - intermidiate_value \
+                     + (args['N'] - args['n'] - args['d']) \
+                     + args['n'] - intermidiate_value*math.log(args['n'])
     plt.figure(figsize=(20,12))
     plt.plot(days,R_values,label='R',linewidth=4.5)
     plt.plot(days,D_values,label='D',linewidth=4.5)
@@ -132,7 +148,7 @@ def main() -> None:
     plt.tick_params(labelsize=25)
     plt.legend(prop = { "size": 40 }, loc='center right')
     plt.savefig('sird_method2.png')
-    #plt.show()
+    plt.show()
     print('--- plotted ' + 'P: ' + str(args['P']) + ', K: ' + str(args['K']) + ' ---') 
     print('--- I value max true =', I_value_max_true)
     plt.show()
