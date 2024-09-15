@@ -84,6 +84,7 @@ def Rpk(args: dict,R_values,S_values,I_values,days) -> float:
                 if (I_value > I_value_max):
                     I_value_max = I_value
                     I_value_max_day = p*delta_t
+            print("K =",k,", P =",p,", R =",R[k][p])
     print('--- I value max =', I_value_max, 'on day', I_value_max_day)
 
     return R[args['K']][args['P']]
@@ -93,12 +94,12 @@ def main() -> None:
     R_values_old = None
     args = {
             'N':97.47*1e6,
-            'M':0.05,
+            'M':0.2,
             'gamma':0.05,
             'beta':0.000000003,
             'T':180,
             'P':50,
-            'K':20,
+            'K':50,
             'n':97.47*1e6 - 11
             }
     lessThanTolerance = False

@@ -55,8 +55,8 @@ def main() -> None:
             'gamma':0.02,
             'beta':0.0004,
             'T':365,
-            'P':100,
-            'K':2,
+            'P':1000,
+            'K':4,
             'n':998
             }
     lessThanTolerance = False
@@ -90,10 +90,11 @@ def main() -> None:
             + ', K: ' + str(args['K']) + ')', fontsize=25)
     plt.xlabel('Days', fontsize=25)
     plt.ylabel('People', fontsize=25)
+    plt.yscale('log')
     plt.tick_params(labelsize=25)
     plt.legend(prop = { "size": 40 }, loc='center right')
     plt.show()
-    plt.savefig('plot_method2.png')
+    #plt.savefig('plot_method2.png')
     print('--- plotted ' + 'P: ' + str(args['P']) + ', K: ' + str(args['K']) + ' ---') 
     print('--- I value max true =', I_value_max_true)
     plt.clf()

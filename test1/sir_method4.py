@@ -84,7 +84,7 @@ def main() -> None:
     plt.tick_params(labelsize=25)
     plt.legend(prop = { "size": 40 }, loc='center right')
     plt.show()
-    plt.savefig('plot_method4.png')
+    #plt.savefig('plot_method4.png')
     print('--- plotted ' + 'P: ' + str(args['P']) + ' ---') 
     print('--- I value max true =', I_value_max_true)
     plt.clf()
