@@ -97,7 +97,7 @@ def main() -> None:
     plt.ylabel('People', fontsize=25)
     plt.tick_params(labelsize=25)
     plt.legend(prop = { "size": 40 }, loc='center right')
-    plt.savefig('sird_method1.png')
+    plt.savefig('sird_euler.png')
     print('--- plotted ' + 'P: ' + str(args['P']) + ', K: ' + str(args['K']) + ' ---') 
     print('--- I value max true =', I_value_max_true)
     plt.show()

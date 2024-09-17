@@ -103,8 +103,8 @@ def main() -> None:
             'gamma':0.02,
             'beta':0.0004,
             'T':365,
-            'P':1000,
-            'K':50,
+            'P':100,
+            'K':5,
             'n':998
             }
     R_values = []
@@ -138,7 +138,7 @@ def main() -> None:
     plt.ylabel('People', fontsize=25)
     plt.tick_params(labelsize=25)
     plt.legend(prop={ 'size': 40 }, loc='center right', fontsize=25)
-    plt.savefig('sir_vital_dynamics_method2.png')
+    plt.savefig('sir_vital_dynamics_rk4.png')
     print('--- plotted ' + 'P: ' + str(args['P']) + ', K: ' + str(args['K']) + ' ---')
     plt.show()
     plt.clf()

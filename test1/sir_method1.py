@@ -50,14 +50,14 @@ def I(R: float, S: float, args: dict) -> float:
 def main() -> None:
     R_values_old = None
     args = {
-        'N':97.47*1e6,
-        'M':0.05,
-        'gamma':0.05,
-        'beta':0.000000003,
-        'T':180,
-        'P':19000,
-        'K':100,
-        'n':97.47*1e6 - 11
+        'N':1000,
+        'M':0.02,
+        'gamma':0.02,
+        'beta':0.0004,
+        'T':365,
+        'P':100,
+        'K':5,
+        'n':998
         }
     lessThanTolerance = False
     tolerance = 0.1

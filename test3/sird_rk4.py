@@ -88,13 +88,13 @@ def main() -> None:
     R_values_old = None
     args = {
             'N':1000,
-            'M_bar':0.03,
+            'M_bar':0.015,
             'gamma':0.02,
             'beta':0.0004,
             'sigma':0.01,
             'T':365,
-            'P':200,
-            'K':10,
+            'P':100,
+            'K':5,
             'n':998,
             'd':0
             }
@@ -118,12 +118,9 @@ def main() -> None:
         abs((I_value_max - I_value_max_prev)/I_value_max_prev) * 10**6
     I_max_day_variance = \
         abs((I_value_max_day - I_value_max_day_prev)/I_value_max_day_prev) * 10**3
-    print('Imax: ', I_value_max, 'day', I_value_max_day, 'P:',args['P'], 'I_vari:',I_max_variance, 'Day_vari:',I_max_day_variance)
+    print('Imax: ', I_value_max, 'day', I_value_max_day)
     I_value_max_prev = I_value_max
     I_value_max_day_prev = I_value_max_day
-    with open('true_plot.txt','w') as f:
-        for i, day in enumerate(days):
-            f.write(str(i + 1) + ' ' + str(day) + ' ' + str(I_values[i]) + '\n')
 
     muy = args['beta']/args['gamma']
     intermidiate_value = ((args['gamma'] + args['sigma'])/args['beta'])
@@ -147,7 +144,7 @@ def main() -> None:
     plt.ylabel('People', fontsize=25)
     plt.tick_params(labelsize=25)
     plt.legend(prop = { "size": 40 }, loc='center right')
-    plt.savefig('sird_method2.png')
+    plt.savefig('sird_rk4.png')
     plt.show()
     print('--- plotted ' + 'P: ' + str(args['P']) + ', K: ' + str(args['K']) + ' ---') 
     print('--- I value max true =', I_value_max_true)

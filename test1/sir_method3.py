@@ -77,7 +77,6 @@ def main() -> None:
             + ')', fontsize=25)
     plt.xlabel('Days', fontsize=25)
     plt.ylabel('People', fontsize=25)
-    plt.yscale('log')
     plt.tick_params(labelsize=25)
     plt.legend(prop = { "size": 40 }, loc='center right')
     plt.show()

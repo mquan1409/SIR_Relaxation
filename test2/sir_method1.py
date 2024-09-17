@@ -21,7 +21,7 @@ def Rpk(args: dict,R_values,S_values,I_values,days) -> float:
             R[k][p] = (R[k][p-1] + delta_t \
                        * (args['gamma'] * args['N'] \
                           - g(R[k-1][p],args) \
-                          + args['M'] * R[k-1][p]))\
+                          + args['M'] * R[k-1][p])) \
                       / (1 + delta_t * args['M'])
             if k == args['K']:
                 R_value = R[k][p]
@@ -50,15 +50,15 @@ def I(R: float, S: float, args: dict) -> float:
 def main() -> None:
     R_values_old = None
     args = {
-            'N':1000,
-            'M':0,
-            'gamma':0.02,
-            'beta':0.0004,
-            'T':365,
-            'P':100,
-            'K':2,
-            'n':998
-            }
+        'N':97.47*1e6,
+        'M':0.05,
+        'gamma':0.05,
+        'beta':3e-9,
+        'T':180,
+        'P':2000,
+        'K':50,
+        'n':97.47*1e6 - 11
+    }
     lessThanTolerance = False
     tolerance = 0.1
     R_values = []
@@ -90,10 +90,9 @@ def main() -> None:
             + ', K: ' + str(args['K']) + ')', fontsize=25)
     plt.xlabel('Days', fontsize=25)
     plt.ylabel('People', fontsize=25)
-    plt.yscale('log')
     plt.tick_params(labelsize=25)
     plt.legend(prop = { "size": 40 }, loc='center right')
-    plt.savefig('plot_method2.png')
+    plt.savefig('plot_method1.png')
     plt.show()
     print('--- plotted ' + 'P: ' + str(args['P']) + ', K: ' + str(args['K']) + ' ---') 
     print('--- I value max true =', I_value_max_true)
@@ -101,8 +100,8 @@ def main() -> None:
 
 
 if __name__=='__main__':
-    #start_time = time.time()
+    start_time = time.time()
     main()
-    #stop_time = time.time()
-    #execution_time = stop_time - start_time
-    #print('Execution time: ',execution_time)
+    stop_time = time.time()
+    execution_time = stop_time - start_time
+    print('Execution time: ',execution_time)
