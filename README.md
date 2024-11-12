@@ -7,4 +7,4 @@ We have 3 tests:
 - Test 2
 - Test 3
 
-This code repository accompanies the paper [Efficient Relaxation Scheme for the SIR and Related Compartmental Models](https://www.researchgate.net/publication/385746835_Efficient_relaxation_scheme_for_the_SIR_and_related_compartmental_models) published in the Journal of Computational Science.
+This code repository accompanies the paper [Efficient Relaxation Scheme for the SIR and Related Compartmental Models](https://www.researchgate.net/publication/385746835_Efficient_relaxation_scheme_for_the_SIR_and_related_compartmental_models) published in the Journal of Computational Science of the Elsevier.
